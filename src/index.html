@@ -1,10 +1,34 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Webpack Showcase</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO"
+        crossorigin="anonymous">
+    <title>Lab 1</title>
 </head>
+
 <body>
-    <h1>Welcome to Class.</h1>
+    <div class="page-header">Tip Calculator</div>
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <span class="input-group-text">$</span>
+        </div>
+        <input type="number" class="form-control">
+    </div>
+    <div class="btn-group btn-group-toggle" data-toggle="buttons" id="tip">
+        <button class="btn btn-secondary" type="button">10%</button>
+        <button class="btn btn-secondary" type="button">15%</button>
+        <button class="btn btn-secondary" type="button">20%</button>
+    </div>
+    <div class="current-tip"></div>
+
+    <ul class="list-group">
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+        <li class="list-group-item"></li>
+    </ul>
 </body>
+
 </html>
