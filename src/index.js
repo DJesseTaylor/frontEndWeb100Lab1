@@ -1,11 +1,17 @@
 import './styles.css';
 import { ready } from './utils';
 
-let tipButtons, bill, tipPercent, currentTip, output, amountOfTip = "", totalBill = "";
+export let tipButtons, bill, tipPercent, currentTip, output, amountOfTip = "", totalBill = "";
 
-function setUp() {
+export function setUp() {
     bill = document.querySelector(".form-control");
     bill.oninput = updateTip;
+    bill.addEventListener("keydown", function(c) {
+        if ("e" == c.key) {
+          c.preventDefault();
+        }
+    });
+
 
     tipButtons = document.querySelectorAll(".btn.btn-secondary");
     tipButtons[0].disabled = true;
@@ -23,7 +29,7 @@ function setUp() {
 
 ready(setUp);
 
-function updateTip(){
+export function updateTip(){
     if(isNaN(parseFloat(bill.value)) || parseFloat(bill.value) < 0)
     {
         if(bill.value !== ""){
@@ -55,7 +61,7 @@ function updateOutput() {
     output.item(3).innerHTML =  `Total to be Paid: $${totalBill}`;
 }
 
-function tipPercentSelected(){
+export function tipPercentSelected(){
     tipButtons.forEach(b=>{
         b.disabled = false;
     });
