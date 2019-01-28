@@ -1,73 +1,81 @@
 import './styles.css';
 import { ready } from './utils';
 
-export let tipButtons, bill, tipPercent, currentTip, output, amountOfTip = "", totalBill = "";
+export const tipInfo = {
+    tipButtons: null,
+    bill: null,
+    tipPercent: "",
+    currentTip: 0,
+    output: "",
+    amountOfTip: "",
+    totalBill: ""
+}
 
 export function setUp() {
-    bill = document.querySelector(".form-control");
-    bill.oninput = updateTip;
-    bill.addEventListener("keydown", function(c) {
+    tipInfo.bill = document.querySelector(".form-control");
+    tipInfo.bill.oninput = updateTip;
+    tipInfo.bill.addEventListener("keydown", function(c) {
         if ("e" == c.key) {
           c.preventDefault();
         }
     });
 
 
-    tipButtons = document.querySelectorAll(".btn.btn-secondary");
-    tipButtons[0].disabled = true;
-    tipPercent = tipButtons[0].innerText.slice(0,2);
-    tipButtons.forEach(b => {
+    tipInfo.tipButtons = document.querySelectorAll(".btn.btn-secondary");
+    tipInfo.tipButtons[0].disabled = true;
+    tipInfo.tipPercent = tipInfo.tipButtons[0].innerText.slice(0,2);
+    tipInfo.tipButtons.forEach(b => {
         b.addEventListener('click', tipPercentSelected);
     });
 
-    currentTip = document.querySelector(".current-tip");
-    currentTip.innerHTML = `You are tipping ${tipPercent}%`;
+    tipInfo.currentTip = document.querySelector(".current-tip");
+    tipInfo.currentTip.innerHTML = `You are tipping ${tipInfo.tipPercent}%`;
 
-    output = document.querySelectorAll(".list-group-item");
+    tipInfo.output = document.querySelectorAll(".list-group-item");
     updateOutput();
 }
 
 ready(setUp);
 
 export function updateTip(){
-    if(isNaN(parseFloat(bill.value)) || parseFloat(bill.value) < 0)
+    if(isNaN(parseFloat(tipInfo.bill.value)) || parseFloat(tipInfo.bill.value) < 0)
     {
-        if(bill.value !== ""){
-            bill.classList.add('error');
+        if(tipInfo.bill.value !== ""){
+            tipInfo.bill.classList.add('error');
         }
         else{
-            bill.classList.remove('error');
+            tipInfo.bill.classList.remove('error');
         }
-        amountOfTip = "";
-        totalBill = ""
+        tipInfo.amountOfTip = "";
+        tipInfo.totalBill = ""
     }
     else    {
-        bill.classList.remove('error');
-        amountOfTip = (parseFloat(bill.value) * (parseInt(tipPercent)/100)).toFixed(2);
-        totalBill = (parseFloat(amountOfTip) + parseFloat(bill.value)).toFixed(2);
+        tipInfo.bill.classList.remove('error');
+        tipInfo.amountOfTip = (parseFloat(tipInfo.bill.value) * (parseInt(tipInfo.tipPercent)/100)).toFixed(2);
+        tipInfo.totalBill = (parseFloat(tipInfo.amountOfTip) + parseFloat(tipInfo.bill.value)).toFixed(2);
 
     }
     updateOutput();
 }
 
 function updateOutput() {
-    let formatBill = parseFloat(bill.value).toFixed(2);
+    let formatBill = parseFloat(tipInfo.bill.value).toFixed(2);
     if(isNaN(formatBill)){
         formatBill = "";
     }
-    output.item(0).innerHTML =  `Bill Amount: $${formatBill}`;
-    output.item(1).innerHTML =  `Tip Percentage: ${tipPercent}%`;
-    output.item(2).innerHTML =  `Amount of tip: $${amountOfTip}`;
-    output.item(3).innerHTML =  `Total to be Paid: $${totalBill}`;
+    tipInfo.output.item(0).innerHTML =  `Bill Amount: $${formatBill}`;
+    tipInfo.output.item(1).innerHTML =  `Tip Percentage: ${tipInfo.tipPercent}%`;
+    tipInfo.output.item(2).innerHTML =  `Amount of tip: $${tipInfo.amountOfTip}`;
+    tipInfo.output.item(3).innerHTML =  `Total to be Paid: $${tipInfo.totalBill}`;
 }
 
 export function tipPercentSelected(){
-    tipButtons.forEach(b=>{
+    tipInfo.tipButtons.forEach(b=>{
         b.disabled = false;
     });
     this.disabled = true;
-    tipPercent = this.innerText.slice(0,2);
-    currentTip.innerHTML = `You are tipping ${tipPercent}%`;
+    tipInfo.tipPercent = this.innerText.slice(0,2);
+    tipInfo.currentTip.innerHTML = `You are tipping ${tipInfo.tipPercent}%`;
 
     updateTip()
 }
