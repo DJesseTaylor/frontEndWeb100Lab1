@@ -11,7 +11,7 @@ export const tipInfo = {
     totalBill: ""
 }
 
-export function setUp() {
+function setUp() {
     tipInfo.bill = document.querySelector(".form-control");
     tipInfo.bill.oninput = updateTip;
     tipInfo.bill.addEventListener("keydown", function(c) {
@@ -37,7 +37,7 @@ export function setUp() {
 
 ready(setUp);
 
-export function updateTip(){
+function updateTip(){
     if(isNaN(parseFloat(tipInfo.bill.value)) || parseFloat(tipInfo.bill.value) < 0)
     {
         if(tipInfo.bill.value !== ""){
@@ -69,7 +69,7 @@ function updateOutput() {
     tipInfo.output.item(3).innerHTML =  `Total to be Paid: $${tipInfo.totalBill}`;
 }
 
-export function tipPercentSelected(){
+function tipPercentSelected(){
     tipInfo.tipButtons.forEach(b=>{
         b.disabled = false;
     });
@@ -79,3 +79,7 @@ export function tipPercentSelected(){
 
     updateTip()
 }
+
+// export const tipPercentSelectedFunction = tipPercentSelected;
+// export const setUpFunction = setUp;
+// export const updateTipFunction = updateTip
